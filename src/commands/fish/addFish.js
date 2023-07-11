@@ -85,7 +85,7 @@ module.exports = {
 
             try {
                 const query = {
-                    fishtype: ft
+                    fishname: fn
                 };
 
                 const afishtype = await FishType.findOne(query);
