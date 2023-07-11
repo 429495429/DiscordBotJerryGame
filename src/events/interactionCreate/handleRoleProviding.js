@@ -4,9 +4,7 @@ module.exports = async (client, interaction) => {
     if(!interaction.isButton()) return;
 
     await interaction.deferReply({ ephemeral: true});
-
-    console.log('error here');
-    
+   
     try {
         const role = interaction.guild.roles.cache.get(interaction.customId);
         if(!role){
