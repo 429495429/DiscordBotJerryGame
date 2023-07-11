@@ -17,6 +17,10 @@ const fishTypeSchema = new Schema({
         type: Number,
         default: 0,
     },
+    rare:{
+        type: Number,
+        default: 1,
+    },
     unitprice:{
         type: Number,
         default: 0,
