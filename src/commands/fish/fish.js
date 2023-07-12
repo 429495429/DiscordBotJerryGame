@@ -69,13 +69,19 @@ module.exports = {
                     var resultrank = getRandom(0,100);
                     var fishrank;
                     var resulttext;
-                    if(resultrank > 95){
+                    if(resultrank > 1000 ){
+                        fishrank = 5;
+                        resulttext = '@c!59y;4d#%@j♢878□bdf;#!@@!8b4yh3g67@d#9@6d85%@!h78@s2g;d6c#t9y6';
+                    } else if (resultrank > 1000 ){
+                        fishrank = 4;
+                        resulttext = 'It looks a bit weird, you have get a superior';
+                    } else if (resultrank > 970){
                         fishrank = 3;
                         resulttext = 'Congradulation, Chosen One! You have get a Luxurious';
-                    } else if (resultrank > 70 ){
+                    } else if (resultrank > 700 ){
                         fishrank = 2;
                         resulttext = 'A huge tension! After a hard fighting, you have get a superior';
-                    } else if(resultrank > 5){
+                    } else if(resultrank > 50){
                         fishrank = 1;
                         resulttext = 'Woo~ A nice fish, you have get a common';
                     } else {
@@ -88,6 +94,7 @@ module.exports = {
                     const fishlist = await FishType.find(fishtypequery);
                     const resultfishtype = await getRandomFish(fishlist);
                     
+                    //creating object fish
                     const newfishname = resultfishtype.fishname;
                     const newfishlength = await getRandom(resultfishtype.minlength, resultfishtype.maxlength);
                     const newfishprice = resultfishtype.unitprice*newfishlength
@@ -98,6 +105,8 @@ module.exports = {
                         price: newfishprice,
                     });
                     await newfish.save();
+
+                    //anounce fisher
                     await interaction.followUp(`${interaction.member} ${resulttext} ${newfishname} with ${newfishlength} long, worth ${newfishprice}!`);
 
                 } else {

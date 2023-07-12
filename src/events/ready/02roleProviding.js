@@ -1,14 +1,14 @@
 require('dotenv').config();
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { serverId, dev, clientId} = require('../../../config.json');
+const { serverId, dev, clientId, fisherRoleId, 修士RoleId} = require('../../../config.json');
 
 const roles = [
     {
-        id: '1127423063441547425',
+        id: fisherRoleId,
         label: 'Fisher🎣',
     },
     {
-        id: '1127423330086047745',
+        id: 修士RoleId,
         label: '修士🔥',
     },
 ]

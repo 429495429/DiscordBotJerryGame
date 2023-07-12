@@ -54,6 +54,14 @@ module.exports = {
                 name: 'luxurious',
                 value: 3,
             },
+            {
+                name: 'mythic',
+                value: 4,
+            },
+            {
+                name: '#$%^@□',
+                value: 5,
+            },
         ],
         require: true,
     },
@@ -127,7 +135,12 @@ module.exports = {
                     case 3:
                         raretext = "luxurious";
                         break;
-                
+                    case 4:
+                        raretext = "mythic";
+                        break;
+                    case 5:
+                        raretext = "#$%^@□";
+                        break;
                     default:
                         break;
                 }
