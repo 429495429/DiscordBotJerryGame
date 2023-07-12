@@ -50,7 +50,7 @@ module.exports = {
                 var showedNumber;
                 totalPages = Math.ceil(fishNumber/5);
                 if(basketPage > totalPages){
-                    interaction.reply('You dont have that many fish');
+                    await interaction.reply('You dont have that many fish');
                     return;
                 }
                 if(totalPages < basketPage){
@@ -75,7 +75,7 @@ module.exports = {
                     );
                 });
                 
-                interaction.reply({ embeds: [embed] });
+                await interaction.reply({ embeds: [embed] });
 
             }else {
                 await interaction.reply('You have not signin as a fisher yet!');
