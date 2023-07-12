@@ -17,7 +17,7 @@ module.exports = {
     callback: async (client, interaction) => {
         if(!interaction.inGuild() || interaction.user.bot ) return;
         if(cooldowns.has(interaction.member.user.id)){
-            interaction.reply(`${interaction.member} you have already sign today!`);
+            await interaction.reply(`${interaction.member} you have already sign today!`);
             return;
         }else {
 

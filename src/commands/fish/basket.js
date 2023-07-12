@@ -7,8 +7,6 @@ const {
   } = require('discord.js');
 const Fisher = require('../../model/fisher');
 const Fish = require('../../model/fish');
-const fish = require('./fish');
-
 
 module.exports = {
     deleted: false,
@@ -40,30 +38,28 @@ module.exports = {
                 const fishbasketquery = {
                     ownerId:interaction.member.user.id
                 };
+
+                //feching the fish owned by this fisher
                 const fishlist = await Fish.find(fishbasketquery);
                 const fishPerPage = 5;
                 const basketPage = interaction.options.get('page').value;
 
+                //calculated the page and the fish show in the page
                 pageStart = (basketPage-1)*5;
                 const fishNumber = fishlist.length;
                 var showedNumber;
                 totalPages = Math.ceil(fishNumber/5);
-
                 if(basketPage > totalPages){
                     interaction.reply('You dont have that many fish');
                     return;
                 }
-
-                
-
                 if(totalPages < basketPage){
                     showedNumber = fishNumber%5;
                 }else{
                     showedNumber = 5;
                 }
 
-                
-                
+                //create visualized embed of fish basket
                 const embed = new EmbedBuilder()
                     .setTitle('对象列表')
                     .setDescription('显示对象的信息')
@@ -81,9 +77,6 @@ module.exports = {
                 
                 interaction.reply({ embeds: [embed] });
 
-                // embed.setFooter(`第 ${page + 1} 页 / 共 ${totalPages} 页`);
-                // pages.push(embed);
-                // }
             }else {
                 await interaction.reply('You have not signin as a fisher yet!');
             }

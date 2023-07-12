@@ -77,12 +77,12 @@ module.exports = {
 
     callback: async(client, interaction) => {
         if(interaction.member.id === interaction.guild.ownerId){
-            const ft = interaction.options.get('fishtype').value;
-            const fn = interaction.options.get('fishname').value;
-            var mal = interaction.options.get('maxlength').value;
-            var mil = interaction.options.get('minlength').value;
-            const rare = interaction.options.get('rare').value;
-            const up = interaction.options.get('unitprice').value;
+            const ft = await interaction.options.get('fishtype').value;
+            const fn = await interaction.options.get('fishname').value;
+            var mal = await interaction.options.get('maxlength').value;
+            var mil = await interaction.options.get('minlength').value;
+            const rare = await interaction.options.get('rare').value;
+            const up = await interaction.options.get('unitprice').value;
             const roleId = '1127423063441547425';
             const roleMention = `<@&${roleId}>`;
             if (mil > mal){

@@ -26,7 +26,7 @@ module.exports = {
     callback: async (client, interaction) => {
         if(!interaction.inGuild() || interaction.user.bot ) return;
         if(cooldowns.has(interaction.member.user.id)){
-            interaction.reply(`${interaction.member} Dont hurry! The fish will run!`);
+            await interaction.reply(`${interaction.member} Dont hurry! The fish will run!`);
             return;
         }else {
             
@@ -58,15 +58,15 @@ module.exports = {
                     await delay(fishtime);
 
                     //fishing result
-                    await fisher.lure --;
-                    await fisher.exp ++;
+                    fisher.lure --;
+                    fisher.exp ++;
                     await fisher.save().catch((e) => {
                         console.log(`Error saving updated fisher data ${e}`);
                         return;
                     });
                     
                     //detemin what rarelity of fish the user can get
-                    var resultrank = getRandom(0,100);
+                    var resultrank = getRandom(0,1000);
                     var fishrank;
                     var resulttext;
                     if(resultrank > 1000 ){
@@ -96,7 +96,7 @@ module.exports = {
                     
                     //creating object fish
                     const newfishname = resultfishtype.fishname;
-                    const newfishlength = await getRandom(resultfishtype.minlength, resultfishtype.maxlength);
+                    const newfishlength = getRandom(resultfishtype.minlength, resultfishtype.maxlength);
                     const newfishprice = resultfishtype.unitprice*newfishlength
                     const newfish = new Fish({
                         fishname: newfishname,
