@@ -16,6 +16,15 @@ function getRandomFish(list){
     return list[randomIndex];
 }
 
+const magicRodScale = {
+    r0r: 50,
+    r1r: 650,
+    r2r: 270,
+    r3r: 30,
+    r4r: 0,
+    r5r: 0,
+}
+
 module.exports = {
     deleted: false,
     name: 'fish',
@@ -66,22 +75,28 @@ module.exports = {
                     });
                     
                     //detemin what rarelity of fish the user can get
-                    var resultrank = getRandom(0,1000);
                     var fishrank;
                     var resulttext;
-                    if(resultrank > 1000 ){
+                    var rank0rate = magicRodScale.r0r;
+                    var rank1rate = rank0rate + magicRodScale.r1r;
+                    var rank2rate = rank1rate + magicRodScale.r2r;
+                    var rank3rate = rank2rate + magicRodScale.r3r;
+                    var rank4rate = rank3rate + magicRodScale.r4r;
+                    var totalrate = rank4rate + magicRodScale.r5r;
+                    var resultrank = getRandom(0,totalrate);
+                    if(resultrank > rank4rate ){
                         fishrank = 5;
                         resulttext = '@c!59y;4d#%@j♢878□bdf;#!@@!8b4yh3g67@d#9@6d85%@!h78@s2g;d6c#t9y6';
-                    } else if (resultrank > 1000 ){
+                    } else if (resultrank > rank3rate ){
                         fishrank = 4;
                         resulttext = 'It looks a bit weird, you have get a superior';
-                    } else if (resultrank > 970){
+                    } else if (resultrank > rank2rate){
                         fishrank = 3;
                         resulttext = 'Congradulation, Chosen One! You have get a Luxurious';
-                    } else if (resultrank > 700 ){
+                    } else if (resultrank > rank1rate ){
                         fishrank = 2;
                         resulttext = 'A huge tension! After a hard fighting, you have get a superior';
-                    } else if(resultrank > 50){
+                    } else if(resultrank > rank0rate){
                         fishrank = 1;
                         resulttext = 'Woo~ A nice fish, you have get a common';
                     } else {

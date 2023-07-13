@@ -61,8 +61,8 @@ module.exports = {
 
                 //create visualized embed of fish basket
                 const embed = new EmbedBuilder()
-                    .setTitle('对象列表')
-                    .setDescription('显示对象的信息')
+                    .setTitle(`${interaction.member.user.id}'s Basket`)
+                    .setDescription('list of your fish')
                     .setColor('FFFFFF')
                     .setFooter({ text:`Page ${basketPage} 页 / 共 ${totalPages} 页`});
 

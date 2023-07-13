@@ -1,0 +1,4 @@
+DISCORD_TOKEN = <bot_token>
+GUILD_ID = <guild_id>
+CLIENT_ID = <client_id>
+MONGODB = <db_url>
