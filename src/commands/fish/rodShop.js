@@ -6,12 +6,12 @@ const {
     EmbedBuilder,
   } = require('discord.js');
 const Fisher = require('../../model/fisher');
-const Fish = require('../../model/fish');
+const RodType = require('../../model/rodType');
 
 module.exports = {
     deleted: false,
-    name: 'basket',
-    description: 'show your own basket',
+    name: 'rodshop',
+    description: 'Welcome to Rod Shop!',
     // devOnly: Boolean,
     // testOnly: true,
     options: [
@@ -35,30 +35,30 @@ module.exports = {
 
             //check if the user is alreayd signin as fisher
             if(fisher){
-                const fishbasketquery = {
-                    ownerId:interaction.member.user.id
+                const rodshopquery = {
+                    limited: false
                 };
 
                 //feching the fish owned by this fisher
-                const fishlist = await Fish.find(fishbasketquery);
-                const fishPerPage = 5;
+                const rodlist = await RodType.find(rodshopquery);
+                const rodPerPage = 5;
                 if(interaction.options.get('page')){
-                    basketPage = interaction.options.get('page').value;
+                    rodshopPage = interaction.options.get('page').value;
                 }else{
-                    basketPage = 1;
+                    rodshopPage = 1;
                 }
 
                 //calculated the page and the fish show in the page
-                pageStart = (basketPage-1)*5;
-                const fishNumber = fishlist.length;
+                pageStart = (rodshopPage-1)*5;
+                const rodNumber = rodlist.length;
                 var showedNumber;
-                totalPages = Math.ceil(fishNumber/5);
-                if(basketPage > totalPages){
-                    await interaction.reply('You dont have that many fish');
+                totalPages = Math.ceil(rodNumber/5);
+                if(rodshopPage > totalPages){
+                    await interaction.reply('We dont have that many rod');
                     return;
                 }
-                if(totalPages == basketPage){
-                    showedNumber = fishNumber%5;
+                if(totalPages == rodshopPage){
+                    showedNumber = rodNumber%5;
                     if(showedNumber == 0){
                         showedNumber = 5
                     }
@@ -68,16 +68,16 @@ module.exports = {
 
                 //create visualized embed of fish basket
                 const embed = new EmbedBuilder()
-                    .setTitle(`${interaction.member.user.id}'s Basket`)
-                    .setDescription('list of your fish')
+                    .setTitle(`Fisher Forge`)
+                    .setDescription('list of Rod')
                     .setColor('FFFFFF')
-                    .setFooter({ text:`Page ${basketPage} 页 / 共 ${totalPages} 页`});
+                    .setFooter({ text:`Page ${rodshopPage} 页 / 共 ${totalPages} 页`});
 
-                fishlist.splice(pageStart,showedNumber).forEach(fish => {
+                rodlist.splice(pageStart,showedNumber).forEach(rod => {
                     embed.addFields(
                         {
-                            name: `${fish.fishname} ${fish.length}cm long worth ${fish.price} cash. `,
-                            value: `fish id: ${fish._id}`
+                            name: `${rod.rodname} discount:${rod.discount}% cost:${rod.shopcost}cash.`,
+                            value: `Rod Rare Scale: ${rod.rare0rate}-${rod.rare1rate}-${rod.rare2rate}-${rod.rare3rate}-${rod.rare4rate}-${rod.rare5rate} ${rod.basictime/1000}seconds`
                         }
                     );
                 });

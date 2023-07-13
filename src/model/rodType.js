@@ -36,6 +36,14 @@ const rodTypeSchema = new Schema({
     shopcost:{
         type: Number,
         default: 0,
+    },
+    limited:{
+        type: Boolean,
+        default: false,
+    },
+    discount:{
+        type: Number,
+        default: 0,
     }
 })
 

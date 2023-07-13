@@ -7,7 +7,7 @@ const RodType = require('../../model/rodType');
 
   
 module.exports = {
-    deleted: true,
+    deleted: false,
     name: 'addrodtype',
     description: 'Add a new type of rod!',
     // devOnly: Boolean,
@@ -66,6 +66,28 @@ module.exports = {
         description: 'Cost in the shop',
         type: ApplicationCommandOptionType.Number,
         require: true,
+    },
+    {
+        name: 'discount',
+        description: 'discount of the rod',
+        type: ApplicationCommandOptionType.Number,
+        require: true,
+    },
+    {
+        name: 'limited',
+        description: 'is the rod limited now?',
+        type: ApplicationCommandOptionType.Boolean,
+        require: true,
+        choice: [
+            {
+                name: 'Yes',
+                value: true,
+            },
+            {
+                name: 'No',
+                value: false,
+            }
+        ],
     }
     ],
     permissionsRequired: [PermissionFlagsBits.Administrator],
@@ -82,12 +104,14 @@ module.exports = {
             const r5r = await interaction.options.get('rare5rate').value;
             const bsitime = await interaction.options.get('basictime').value;
             const shopcst = await interaction.options.get('shopcost').value;
+            const roddis = await interaction.options.get('discount').value;
+            const rodlimit = await interaction.options.get('limited').value;
             const roleId = '1127423063441547425';
             const roleMention = `<@&${roleId}>`;
 
             try {
                 const query = {
-                    rodname: fn
+                    rodname: rn
                 };
 
                 const arodtype = await RodType.findOne(query);
@@ -103,6 +127,8 @@ module.exports = {
                     arodtype.rare5rate = r5r;
                     arodtype.basictime = bsitime;
                     arodtype.shopcost = shopcst;
+                    arodtype.discount = roddis;
+                    arodtype.limited = rodlimit;
 
                     await arodtype.save().catch((e) => {
                         console.log(`Error saving updated fisher data ${e}`);
@@ -120,6 +146,8 @@ module.exports = {
                         rare5rate: r5r,
                         basictime: bsitime,
                         shopcost: shopcst,
+                        discount: roddis,
+                        limited: rodlimit
                     });
 
                     await newrodtype.save();
@@ -148,6 +176,16 @@ module.exports = {
                     {
                         name: 'Price: ',
                         value: `${shopcst} cash`,
+                        inline: false
+                    },
+                    {
+                        name: 'Discount: ',
+                        value: `${roddis}% off`,
+                        inline: false
+                    },
+                    {
+                        name: 'On shell: ',
+                        value: `${!rodlimit}`,
                         inline: false
                     },
                 )
