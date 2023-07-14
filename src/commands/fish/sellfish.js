@@ -26,6 +26,10 @@ module.exports = {
     
     callback: async (client, interaction) => {
         if(!interaction.inGuild() || interaction.user.bot ) return;
+        if(!interaction.options.get('fishid')){
+            interaction.reply({content: 'please enter the fish id', ephemeral: true });
+            return;
+        }
         
         const query = {
             userId: interaction.member.user.id,
