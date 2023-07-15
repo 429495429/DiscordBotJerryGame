@@ -18,7 +18,7 @@ module.exports = {
     options: [
         {
             name: 'fishid',
-            description: 'The type of the fish.',
+            description: 'The id of the fish.',
             type: ApplicationCommandOptionType.String,
             required: true,
         }
@@ -65,7 +65,7 @@ module.exports = {
                     console.log(`Error saving updated fisher data ${e}`);
                     return;
                 });
-                Fish.deleteOne(fishquery).catch((e) => {
+                await Fish.deleteOne(fishquery).catch((e) => {
                         console.log(`Error deleting fish data ${e}`);
                         return;
                     });

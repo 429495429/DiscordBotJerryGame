@@ -6,6 +6,10 @@ const {
     EmbedBuilder,
   } = require('discord.js');
 const Fisher = require('../../model/fisher');
+const Rod = require('../../model/rod');
+const Equipship = require('../../model/equipship');
+const { Types } = require('mongoose');
+
 
 module.exports = {
     deleted: false,
@@ -67,6 +71,25 @@ module.exports = {
                 )
                 .setThumbnail(interaction.member.user.displayAvatarURL({ size: 256 }))
                 .setColor('00FFFF');
+
+            //check if the fisher equiping a rod and visulized it
+            const equipshipquery = {
+                ownerId:interaction.member.user.id
+            }
+            const equipship = await Equipship.findOne(equipshipquery);
+            if(equipship){
+                const rodid = new Types.ObjectId(equipship.rodId);
+                const rodquery = {
+                    _id:rodid
+                };
+                
+                const rod = await Rod.findOne(rodquery);
+
+                embed.addFields({
+                    name:'equiping:',
+                    value:`+ ${rod.reinforce} ${rod.rodname}`
+                });
+            }
 
             await interaction.reply({ embeds: [embed] });
             

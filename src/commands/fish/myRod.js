@@ -76,7 +76,7 @@ module.exports = {
                 rodlist.splice(pageStart,showedNumber).forEach(rod => {
                     embed.addFields(
                         {
-                            name: `+${rod.reinforce} ${rod.rodname} id:${rod._id}`,
+                            name: `+${rod.reinforce} ${rod.rodname} \nid: ${rod._id}`,
                             value: `Scale: ${rod.rare0rate}-${rod.rare1rate}-${rod.rare2rate}-${rod.rare3rate}-${rod.rare4rate}-${rod.rare5rate} \nFishing time:${rod.basictime/1000}seconds`
                         }
                     );
