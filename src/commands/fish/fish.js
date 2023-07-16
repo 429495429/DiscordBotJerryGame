@@ -85,8 +85,6 @@ module.exports = {
                         rank4rate = rank3rate + rod.rare4rate;
                         totalrate = rank4rate + rod.rare5rate;
                         fishtime = rod.basictime;
-                        fishtime = 10000;
-                        console.log(`${rank0rate} ${rank4rate}`);
 
                     }else {
                         rank0rate = magicRodScale.r0r;
@@ -97,6 +95,8 @@ module.exports = {
                         totalrate = rank4rate + magicRodScale.r5r;
                         
                     }
+
+                    //calling reinforce system
 
                     //start fishing
                     await interaction.reply(`${interaction.member} start fishing, please wait for ${fishtime/1000} seconds.`)
@@ -120,7 +120,6 @@ module.exports = {
                     var fishrank;
                     var resulttext;
                     var resultrank = getRandom(0,totalrate);
-                    
                     if(resultrank > rank4rate ){
                         fishrank = 5;
                         resulttext = '@c!59y;4d#%@j♢878□bdf;#!@@!8b4yh3g67@d#9@6d85%@!h78@s2g;d6c#t9y6';
