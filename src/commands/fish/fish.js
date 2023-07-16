@@ -4,6 +4,9 @@ const FishType = require('../../model/fishType');
 const cooldowns = new Set();
 const FISH_BASCI_TIME = 300000;
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const Equipship = require('../../model/equipship');
+const Rod = require('../../model/rod');
+const { Types } = require('mongoose');
 
 function getRandom(min, max){
     min = Math.ceil(min);
@@ -56,6 +59,45 @@ module.exports = {
                         return;
                     }
 
+                    //check fisher's equiped rod and define variables for fishing
+                    var rank0rate;
+                    var rank1rate;
+                    var rank2rate;
+                    var rank3rate;
+                    var rank4rate;
+                    var totalrate;
+                    const equipshipquery = {
+                        ownerId:interaction.member.user.id
+                    }
+                    const equipship = await Equipship.findOne(equipshipquery);
+                    if(equipship){
+                        const rodid = new Types.ObjectId(equipship.rodId);
+                        const rodquery = {
+                            _id:rodid
+                        };
+                        
+                        const rod = await Rod.findOne(rodquery);
+
+                        rank0rate = rod.rare0rate;
+                        rank1rate = rank0rate + rod.rare1rate;
+                        rank2rate = rank1rate + rod.rare2rate;
+                        rank3rate = rank2rate + rod.rare3rate;
+                        rank4rate = rank3rate + rod.rare4rate;
+                        totalrate = rank4rate + rod.rare5rate;
+                        fishtime = rod.basictime;
+                        fishtime = 10000;
+                        console.log(`${rank0rate} ${rank4rate}`);
+
+                    }else {
+                        rank0rate = magicRodScale.r0r;
+                        rank1rate = rank0rate + magicRodScale.r1r;
+                        rank2rate = rank1rate + magicRodScale.r2r;
+                        rank3rate = rank2rate + magicRodScale.r3r;
+                        rank4rate = rank3rate + magicRodScale.r4r;
+                        totalrate = rank4rate + magicRodScale.r5r;
+                        
+                    }
+
                     //start fishing
                     await interaction.reply(`${interaction.member} start fishing, please wait for ${fishtime/1000} seconds.`)
 
@@ -66,24 +108,19 @@ module.exports = {
                     }, fishtime);
                     await delay(fishtime);
 
-                    //fishing result
+                    //fishing result on lure and exp
                     fisher.lure --;
                     fisher.exp ++;
                     await fisher.save().catch((e) => {
                         console.log(`Error saving updated fisher data ${e}`);
                         return;
                     });
-                    
+
                     //detemin what rarelity of fish the user can get
                     var fishrank;
                     var resulttext;
-                    var rank0rate = magicRodScale.r0r;
-                    var rank1rate = rank0rate + magicRodScale.r1r;
-                    var rank2rate = rank1rate + magicRodScale.r2r;
-                    var rank3rate = rank2rate + magicRodScale.r3r;
-                    var rank4rate = rank3rate + magicRodScale.r4r;
-                    var totalrate = rank4rate + magicRodScale.r5r;
                     var resultrank = getRandom(0,totalrate);
+                    
                     if(resultrank > rank4rate ){
                         fishrank = 5;
                         resulttext = '@c!59y;4d#%@j♢878□bdf;#!@@!8b4yh3g67@d#9@6d85%@!h78@s2g;d6c#t9y6';
@@ -103,6 +140,8 @@ module.exports = {
                         await interaction.followUp(`${interaction.member} fishing end, you catch your own shoe.`);
                         return;
                     }
+
+                    
                     const fishtypequery = {
                         rare: fishrank
                     };
