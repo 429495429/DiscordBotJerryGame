@@ -9,11 +9,12 @@ This is a discord chatbot base on discord.js
 
 ## Functions
 
-  -Players can sign in every day to get some free gold and lures
-  -Players can get different types of fish from fishing
-  -Fish can be sold, kept and traded among players
-  -Players can upgrade their fishing tackle to enhance their fishing process
-  -There will be a collection to show player’s achievements in fishing
+  -Players can sign in every day to get some free gold and lures<br>
+  -Players can get different types of fish from fishing<br>
+  -Fish can be sold, kept and traded among players<br>
+  -Players can upgrade their fishing tackle to enhance their fishing process<br>
+  -There will be a collection to show player’s achievements in fishing<br>
+  -More details will be shown on the command descriptions
 
 ## Install
 
