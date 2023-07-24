@@ -1,0 +1,7 @@
+{
+    "serverId": "SERVER_ID",
+    "clientId": "CLIENT_ID",
+    "dev": ["DEVELOPER_ID"],
+    "fisherRoleId": "FISHER_ROLE_ID",
+    "lureUnitCost" : 20
+}
